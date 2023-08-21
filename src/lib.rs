@@ -2,6 +2,8 @@
 pub mod account;
 /// 常量
 mod constant;
+/// 客服消息
+pub mod message;
 use serde::Deserialize;
 
 pub fn add(left: usize, right: usize) -> usize {
