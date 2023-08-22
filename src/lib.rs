@@ -20,8 +20,33 @@ pub struct AccessTokenRes {
     pub expires_in: i32,
 }
 
-pub fn msg_signature(token: &str, timestamp: &str, nonce: &str, echostr: &str) -> String {
-    let mut arr = vec![token, timestamp, nonce, echostr];
+#[derive(Debug, Clone)]
+pub struct Signature {
+    pub token: String,
+    pub timestamp: String,
+    pub nonce: String,
+    pub echostr: String,
+}
+
+impl Signature {
+    pub fn new(token: &str, timestamp: &str, nonce: &str, echostr: &str) -> Self {
+        Signature {
+            token: token.to_string(),
+            timestamp: timestamp.to_string(),
+            nonce: nonce.to_string(),
+            echostr: echostr.to_string(),
+        }
+    }
+}
+
+pub fn msg_signature(signature: &Signature) -> String {
+    let signature = signature.clone();
+    let mut arr = vec![
+        signature.token,
+        signature.timestamp,
+        signature.nonce,
+        signature.echostr,
+    ];
     arr.sort();
     let str = arr.join("");
     let mut hasher = Sha1::new();
@@ -39,7 +64,8 @@ mod test {
         let timestamp = "1409659813";
         let nonce = "1372623149";
         let echostr = "RypEvHKD8QQKFhvQ6QleEB4J58tiPdvo+rtK1I9qca6aM/wvqnLSV5zEPeusUiX5L5X/0lWfrf0QADHHhGd3QczcdCUpj911L3vg3W/sYYvuJTs3TUUkSUXxaccAS0qhxchrRYt66wiSpGLYL42aM6A8dTT+6k4aSknmPj48kzJs8qLjvd4Xgpue06DOdnLxAUHzM6+kDZ+HMZfJYuR+LtwGc2hgf5gsijff0ekUNXZiqATP7PF5mZxZ3Izoun1s4zG4LUMnvw2r+KqCKIw+3IQH03v+BCA9nMELNqbSf6tiWSrXJB3LAVGUcallcrw8V2t9EL4EhzJWrQUax5wLVMNS0+rUPA3k22Ncx4XXZS9o0MBH27Bo6BpNelZpS+/uh9KsNlY6bHCmJU9p8g7m3fVKn28H3KDYA5Pl/T8Z1ptDAVe0lXdQ2YoyyH2uyPIGHBZZIs2pDBS8R07+qN+E7Q==";
-        let result = msg_signature(token, timestamp, nonce, echostr);
+        let signature = Signature::new(token, timestamp, nonce, echostr);
+        let result = msg_signature(&signature);
         let expected = "477715d11cdb4164915debcba66cb864d751f3e6";
         assert_eq!(result, expected);
     }
