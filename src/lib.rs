@@ -4,9 +4,12 @@ pub mod account;
 mod constant;
 /// 解密模块
 pub mod decrypt;
+// 加密模块
+mod encrypt;
 /// 客服消息
 pub mod message;
-mod signature;
+/// 签名模块
+pub mod signature;
 use serde::Deserialize;
 
 #[derive(Debug, Deserialize)]
