@@ -31,7 +31,7 @@ pub struct AccessTokenRes {
 
 pub async fn access_token(id: &str, secret: &str) -> Result<AccessTokenRes, reqwest::Error> {
     let url = format!(
-        "https://qyapi.weixin.qq.com/cgi-bin/gettoken?corpid={}={}",
+        "https://qyapi.weixin.qq.com/cgi-bin/gettoken?corpid={}&corpsecret={}",
         id, secret
     );
     reqwest::get(url)
