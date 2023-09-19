@@ -18,7 +18,7 @@ mod verify;
 use serde::Deserialize;
 
 pub use parse::parse_callback_xml;
-pub use verify::verify_url;
+pub use verify::*;
 
 #[derive(Debug, Deserialize)]
 pub struct AccessTokenRes {
