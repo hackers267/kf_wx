@@ -7,9 +7,9 @@ fn format_url(token: &str) -> String {
 
 #[derive(Debug, Deserialize)]
 pub struct WelcomeRes {
-    errcode: i32,
-    errmsg: String,
-    msgid: String,
+    pub errcode: i32,
+    pub errmsg: String,
+    pub msgid: String,
 }
 
 #[derive(Debug, Serialize)]
