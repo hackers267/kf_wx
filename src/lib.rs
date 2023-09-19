@@ -8,9 +8,17 @@ pub mod decrypt;
 mod encrypt;
 /// 客服消息
 pub mod message;
+/// 解析模块
+mod parse;
 /// 签名模块
 pub mod signature;
+/// 验证模块
+mod verify;
+
 use serde::Deserialize;
+
+pub use parse::parse_callback_xml;
+pub use verify::verify_url;
 
 #[derive(Debug, Deserialize)]
 pub struct AccessTokenRes {
@@ -31,4 +39,3 @@ pub async fn access_token(id: &str, secret: &str) -> Result<AccessTokenRes, reqw
         .json::<AccessTokenRes>()
         .await
 }
-

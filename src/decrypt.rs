@@ -17,13 +17,13 @@ const G: GeneralPurpose = GeneralPurpose::new(
 
 type Aes256CbcDec = cbc::Decryptor<aes::Aes256>;
 
-#[derive(Debug, PartialEq, Eq)]
+#[derive(Debug, PartialEq, Eq, Clone)]
 pub struct Decrypt {
     pub msg: String,
     pub receiveid: String,
 }
 
-#[derive(Debug, PartialEq)]
+#[derive(Debug, PartialEq, Clone, Eq)]
 pub enum DecryptErr {
     Std(String),
     UnpadError(String),
