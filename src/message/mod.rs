@@ -1,8 +1,8 @@
 /// 撤回消息
-mod recall;
+pub mod recall;
 /// 接收消息
-mod receive;
+pub mod receive;
 /// 发送消息
-mod send;
+pub mod send;
 /// 客服欢迎语
-mod welcome;
+pub mod welcome;
