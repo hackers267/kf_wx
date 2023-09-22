@@ -1,7 +1,9 @@
 use crate::constant::BASE_URL;
+use crate::msg_res::MsgItem;
 use reqwest::Client;
 use serde::{Deserialize, Serialize};
 use serde_repr::{Deserialize_repr, Serialize_repr};
+use std::fmt::Debug;
 
 fn format_url(token: &str) -> String {
     format!("{BASE_URL}/sync_msg?access_token={token}")
@@ -37,23 +39,6 @@ pub struct MsgRes {
     pub msg_list: Vec<MsgItem>,
 }
 
-#[derive(Deserialize_repr, Serialize_repr, Debug, Clone)]
-#[repr(u8)]
-pub enum MsgOrigin {
-    WeiXinCustomer = 3,
-    System = 4,
-    Kf = 5,
-}
-
-#[derive(Debug, Clone, Deserialize)]
-pub struct MsgItem {
-    pub msgid: String,
-    pub open_kfid: Option<String>,
-    pub external_userid: Option<String>,
-    pub send_time: u64,
-    pub origin: MsgOrigin,
-    pub servicer_userid: Option<String>,
-}
 /// 接收消息
 pub async fn sync_msg(token: &str, msg: &SyncMsg) -> reqwest::Result<MsgRes> {
     let url = format_url(token);

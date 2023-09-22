@@ -8,6 +8,7 @@ pub mod decrypt;
 mod encrypt;
 /// 客服消息
 mod message;
+mod msg_res;
 /// 解析模块
 mod parse;
 /// 签名模块
@@ -18,6 +19,7 @@ mod verify;
 use serde::Deserialize;
 
 pub use message::*;
+pub use msg_res::*;
 pub use parse::parse_callback_xml;
 pub use verify::*;
 
