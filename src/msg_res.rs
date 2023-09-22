@@ -15,7 +15,10 @@ struct ImageMsg {
 #[serde(rename_all = "snake_case")]
 pub enum Message {
     /// 文本消息
-    Text { menu_id: String, content: String },
+    Text {
+        menu_id: Option<String>,
+        content: String,
+    },
     /// 图片消息
     Image { media_id: String },
     /// 语音消息
@@ -66,6 +69,15 @@ pub enum Message {
         image_url: String,
         shop_nickname: String,
     },
+    Event {
+        /// TODO: 修改为枚举
+        event_type: String,
+        open_kfid: String,
+        external_userid: String,
+        scene: Option<String>,
+        scene_param: Option<String>,
+        welcome_code: Option<String>,
+    },
 }
 
 impl Message {}
@@ -114,7 +126,7 @@ impl Message {
         matches!(self, Message::ChannelsShopProduct { .. })
     }
     /// 判断消息是否视频号订单消息
-    pub(crate) fn is_channels_shop_order(&self) -> bool {
+    pub fn is_channels_shop_order(&self) -> bool {
         matches!(self, Message::ChannelsShopOrder { .. })
     }
 }
